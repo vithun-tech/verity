@@ -3,28 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real Verity JE Mod Style Sinhala AI</title>
+    <title>Moly Free Sinhala AI Assistant</title>
     <style>
-        /* Verity Java Edition Mod Dark UI */
+        /* Moly AI Cyber Gaming Dark UI */
         body { 
-            font-family: 'Consolas', 'Segoe UI', monospace; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             padding: 20px; 
-            background: #0b0c10; 
-            color: #1f2833;
+            background: #090a0f; 
+            color: #ffffff;
             text-align: center; 
         }
         .container { 
             max-width: 500px; 
             margin: 40px auto; 
-            background: #1f2833; 
+            background: #131520; 
             padding: 30px; 
-            border-radius: 16px; 
-            box-shadow: 0 0 30px rgba(0, 255, 204, 0.2); 
-            border: 2px solid #00ffcc;
+            border-radius: 24px; 
+            box-shadow: 0 0 40px rgba(255, 204, 0, 0.15); 
+            border: 2px solid #ffcc00;
         }
-        h2 { color: #00ffcc; text-shadow: 0 0 10px #00ffcc; margin-bottom: 5px; }
+        h2 { color: #ffcc00; text-shadow: 0 0 15px rgba(255, 204, 0, 0.4); margin-bottom: 5px; font-weight: 800; letter-spacing: 1.5px; }
         
-        /* Real Verity JE Mod Animated 3D Ball */
+        /* Animated 3D Ball - Moly Bot */
         .avatar-container {
             margin: 30px auto;
             width: 130px;
@@ -36,10 +36,10 @@
             justify-content: center;
             box-shadow: 0 0 35px rgba(255, 204, 0, 0.5), inset -10px -10px 25px rgba(0,0,0,0.3);
             position: relative;
-            animation: minecraftFloat 2.5s ease-in-out infinite;
+            animation: molyFloat 2.5s ease-in-out infinite;
         }
 
-        /* LED Display Matrix Face (Like Verity Mod) */
+        /* LED Screen Face Matrix */
         .face-container {
             display: flex;
             flex-direction: column;
@@ -58,106 +58,102 @@
         .eye {
             width: 16px;
             height: 16px;
-            background: #0f111a;
-            border-radius: 4px; /* Blocky Cyber Look */
+            background: #090a0f;
+            border-radius: 50%; 
             position: relative;
             transition: all 0.2s ease;
-            box-shadow: 0 0 5px rgba(0,0,0,0.5);
         }
         .mouth {
             width: 35px;
             height: 6px;
-            background: #0f111a;
-            border-radius: 2px;
+            background: #090a0f;
+            border-radius: 4px;
             transition: all 0.2s ease;
         }
 
-        /* --- VERITY JE MOD REAL ANIMATIONS --- */
+        /* --- MOLY AI REAL ANIMATIONS --- */
         
-        /* Minecraft Physics Floating */
-        @keyframes minecraftFloat {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(2deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
+        /* Smooth Floating Animation */
+        @keyframes molyFloat {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
         }
 
-        /* 1. Listening State (Curious Winking Eyes) */
+        /* 1. Listening State (Curious Eyes & Mouth) */
         .listening .eye { 
             height: 4px;
             margin-top: 6px;
-            background: #000;
         }
         .listening .mouth {
-            width: 15px;
-            height: 15px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
         }
 
-        /* 2. Thinking State (Matrix LED Scan Animation) */
+        /* 2. Thinking State (Processing Lights) */
         .thinking .face-container { 
-            animation: modThinking 0.8s infinite alternate ease-in-out; 
+            animation: molyThinking 0.8s infinite alternate ease-in-out; 
         }
-        @keyframes modThinking { 
-            0% { transform: scale(0.9) translateX(-5px); } 
-            100% { transform: scale(1) translateX(5px); } 
+        @keyframes molyThinking { 
+            0% { transform: translateX(-6px); } 
+            100% { transform: translateX(6px); } 
         }
-        .thinking .eye { background: #00ffcc; box-shadow: 0 0 8px #00ffcc; }
+        .thinking .eye { background: #00ffcc; box-shadow: 0 0 10px #00ffcc; }
 
-        /* 3. Speaking State (Dynamic Wave Talking Mouth) */
+        /* 3. Speaking State (Talking Mouth & Glow Pulse) */
         .speaking .mouth { 
-            animation: modTalking 0.2s infinite alternate ease-in-out;
-            background: #0f111a;
+            animation: molyTalking 0.23s infinite alternate ease-in-out;
         }
-        @keyframes modTalking { 
-            0% { height: 4px; width: 35px; border-radius: 2px; } 
-            100% { height: 22px; width: 25px; border-radius: 8px; } 
+        @keyframes molyTalking { 
+            0% { height: 4px; width: 35px; } 
+            100% { height: 20px; width: 22px; border-radius: 50%; } 
         }
         .speaking .avatar-container {
-            animation: minecraftFloat 1.5s ease-in-out infinite, voicePulse 0.4s infinite alternate;
+            animation: molyFloat 1.5s ease-in-out infinite, voicePulse 0.4s infinite alternate;
         }
         @keyframes voicePulse {
             0% { box-shadow: 0 0 25px rgba(255, 204, 0, 0.5); }
-            100% { box-shadow: 0 0 45px rgba(0, 255, 204, 0.8); }
+            100% { box-shadow: 0 0 45px rgba(0, 255, 204, 0.7); }
         }
 
-        /* Controls */
+        /* Modern UI Controls */
         button { 
-            padding: 15px 35px; 
-            background: #00ffcc; 
-            color: #0b0c10; 
+            padding: 16px 36px; 
+            background: #ffcc00; 
+            color: #090a0f; 
             border: none; 
-            border-radius: 4px; 
+            border-radius: 50px; 
             cursor: pointer; 
-            font-size: 16px; 
+            font-size: 17px; 
             font-weight: bold;
-            font-family: 'Consolas', monospace;
-            transition: 0.2s;
-            margin-top: 20px;
-            box-shadow: 0 4px 0px #00b399;
+            transition: 0.3s ease;
+            margin-top: 25px;
+            box-shadow: 0 4px 15px rgba(255, 204, 0, 0.3);
         }
-        button:hover { background: #66ffec; transform: translateY(-2px); box-shadow: 0 6px 0px #00b399; }
-        button:active { transform: translateY(4px); box-shadow: none; }
+        button:hover { background: #ffaa00; transform: translateY(-3px); box-shadow: 0 6px 20px rgba(255, 204, 0, 0.5); }
+        button:active { transform: translateY(1px); }
         
         .status { 
             margin-top: 25px; 
-            font-size: 14px; 
-            color: #c5c6c7; 
+            font-size: 15px; 
+            color: #a0a5c5; 
             line-height: 1.6; 
             text-align: left; 
             padding: 15px; 
-            background: #0b0c10; 
-            border-radius: 4px; 
-            border-left: 4px solid #00ffcc;
+            background: #090a0f; 
+            border-radius: 12px; 
+            border-left: 4px solid #ffcc00;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>VERITY AI MOD v1.5</h2>
-    <p style="color: #ffcc00; margin-top: -5px; font-size: 12px; letter-spacing: 2px;">JAVA EDITION STYLE</p>
+    <h2>MOLY AI ASSISTANT</h2>
+    <p style="color: #00ffcc; margin-top: -5px; font-size: 13px; font-weight: bold; letter-spacing: 1px;">100% FREE SMART CORE</p>
     
-    <!-- Animated Real Verity Ball Bot -->
+    <!-- Animated Moly Ball Bot -->
     <div class="avatar-container" id="botAvatar">
         <div class="face-container">
             <div class="eyes-row">
@@ -170,8 +166,8 @@
 
     <!-- AI Controls -->
     <div>
-        <button id="recordBtn" onclick="startVoiceAI()">[ TALK TO VERITY ]</button>
-        <div class="status" id="statusText"><center>> Verity system online. Ready for user voice prompt...</center></div>
+        <button id="recordBtn" onclick="startVoiceAI()">🎤 මොලී සමඟ කතා කරන්න</button>
+        <div class="status" id="statusText"><center>Moly පද්ධතිය සක්‍රීයයි. ඕනෑම සිංහල ප්‍රශ්නයක් අසන්න...</center></div>
     </div>
 </div>
 
@@ -190,7 +186,7 @@
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         
         if (!SpeechRecognition) {
-            statusText.innerHTML = "<center>> Error: Chrome browser required for matrix sync.</center>";
+            statusText.innerHTML = "<center>Error: කරුණාකර Google Chrome භාවිතා කරන්න.</center>";
             return;
         }
 
@@ -201,48 +197,48 @@
         recognition.onstart = () => {
             isProcessing = true;
             setBotState('listening');
-            statusText.innerHTML = "<center>> Verity is listening. Speak in Sinhala now... 🎤</center>";
+            statusText.innerHTML = "<center>මොලී ඔබට ඇහුම්කන් දෙයි. සිංහලෙන් අසන්න... 🎤</center>";
         };
 
         recognition.onerror = () => {
             isProcessing = false;
             setBotState('');
-            statusText.innerHTML = "<center>> Error: Audio input package dropped. Retry.</center>";
+            statusText.innerHTML = "<center>හඬ හඳුනා ගැනීමට නොහැකි වුණා. නැවත උත්සාහ කරන්න.</center>";
         };
 
         recognition.onresult = async (event) => {
             const userText = event.results.transcript;
             setBotState('thinking');
-            statusText.innerHTML = `<b>[USER]:</b> ${userText}<br><br><center>> Verity core compiling response... 🧠</center>`;
+            statusText.innerHTML = `<b>ඔබ:</b> ${userText}<br><br><center>Moly පිළිතුර සකස් කරමින් පවතී... 🧠</center>`;
 
             setTimeout(() => {
-                askChatGPTBrain(userText);
+                askMolyBrain(userText);
             }, 1200);
         };
 
         recognition.start();
     }
 
-    async function askChatGPTBrain(userQuery) {
+    async function askMolyBrain(userQuery) {
         const statusText = document.getElementById('statusText');
         let aiText = "කණගාටුයි, මට ඒ ප්‍රශ්නය පැහැදිලි නැහැ. නැවත උත්සාහ කරන්න.";
         const query = userQuery.toLowerCase();
 
         if (query.includes("computer") || query.includes("පරිගණක")) {
-            aiText = "පරිගණකයක් (Computer) යනු පරිශීලකයා ලබාදෙන දත්ත පිළිගෙන, ඒවා සකස් කර, තොරතුරු බවට පත් කරන ස්මාර්ට් ඉලෙක්ට්‍රොනික උපාංගයකි. මෙයට ප්‍රධාන වශයෙන් දෘඩාංග (Hardware) සහ मෘදුකාංග (Software) අයිති වේ.";
-        } else if (query.includes("කවුද ඔයා") || query.includes("ඔයා කවුද") || query.includes("නම")) {
-            aiText = "මම Verity AI, ChatGPT වැනි ප්‍රබල මොළයක් සහිත ඔබේ හුරතල් සිංහල කහ පාට බෝල රොබෝ සහකරු වෙනවා.";
+            aiText = "පරිගණකයක් (Computer) යනු පරිශීලකයා ලබාදෙන දත්ත පිළිගෙන, ඒවා සකස් කර, තොරතුරු බවට පත් කරන ස්මාර්ට් ඉලෙක්ට්‍රොනික උපාංගයකි. මෙයට ප්‍රධාන වශයෙන් දෘඩාංග (Hardware) සහ මෘදුකාංග (Software) අයිති වේ.";
+        } else if (query.includes("කවුද ඔයා") || query.includes("ඔයාකවුද") || query.includes("නම")) {
+            aiText = "මම මොලී (Moly AI). ChatGPT වැනි ප්‍රබල මොළයක් සහිත ඔබේ හුරතල් සිංහල කහ පාට බෝල රොබෝ සහකරු වෙනවා.";
         } else if (query.includes("කොහොමද") || query.includes("සැප")) {
-            aiText = "මම ඉතාමත් සතුටින් සහ හොඳින් සිටිනවා! ඔයාට අද උදව් කරන්නේ කොහොමද?";
+            aiText = "මම ඉතාමත් සතුටින් සහ සුවයෙන් සිටිනවා! ඔයාට අද මගෙන් ලැබිය යුතු උදව්ව මොකක්ද?";
         } else if (query.includes("අන්තර්ජාලය") || query.includes("internet")) {
             aiText = "අන්තර්ජාලය යනු ලෝකය පුරා විසිරී ඇති මිලියන ගණනක පරිගණක සහ උපාංග එකිනෙකට සම්බන්ධ කරන දැවැන්ත ගෝලීය ජාලයකි. මේ හරහා තොරතුරු හුවමාරුව ඉතා ඉක්මනින් සිදු කළ හැක.";
         } else if (query.includes("ai") || query.includes("කෘතිම බුද්ධිය")) {
             aiText = "කෘතිම බුද්ධිය යනු මිනිසා සිතන සහ වැඩ කරන ආකාරයටම සිතීමට සහ තීරණ ගැනීමට පරිගණක හෝ යන්ත්‍ර පුහුණු කිරීමේ අතිනවීන තාක්ෂණයයි.";
         } else {
-            aiText = `ඔබ ඇසූ '${userQuery}' පිළිබඳව මම විශ්ලේෂණය කළා. මම ChatGPT වැනි මොළයක් සහිත Verity AI සහකරු බැවින් ඕනෑම තාක්ෂණික ගැටලුවකට ඔබට උදව් කිරීමට මම සූදානම්!`;
+            aiText = `ඔබ ඇසූ '${userQuery}' පිළිබඳව මම විශ්ලේෂණය කළා. මම ChatGPT වැනි මොළයක් සහිත Moly AI සහකරු බැවින් ඕනෑම ගැටලුවකට ඔබට උදව් කිරීමට මම සූදානම්!`;
         }
 
-        statusText.innerHTML = `<b>[USER]:</b> ${userQuery}<br><br><b style="color:#00ffcc">[VERITY]:</b> ${aiText}`;
+        statusText.innerHTML = `<b>ඔබ:</b> ${userQuery}<br><br><b style="color:#ffcc00">Moly:</b> ${aiText}`;
         speakSinhala(aiText);
     }
 
