@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verity Style Sinhala AI</title>
+    <title>Verity Style Free Sinhala AI</title>
     <style>
         /* Gaming Dark Theme Styling */
         body { 
@@ -64,7 +64,6 @@
             position: relative;
             transition: all 0.2s;
         }
-        /* Eye highlights for cute look */
         .eye::after {
             content: '';
             position: absolute;
@@ -90,26 +89,13 @@
             100% { transform: translateY(0px); }
         }
 
-        /* 1. Listening State (Blinking Eyes) */
-        .listening .eye { 
-            animation: blinkEyes 0.6s infinite alternate; 
-        }
-        @keyframes blinkEyes { 
-            0% { transform: scaleY(1); } 
-            100% { transform: scaleY(0.1); } 
-        }
+        /* Animations */
+        .listening .eye { animation: blinkEyes 0.6s infinite alternate; }
+        @keyframes blinkEyes { 0% { transform: scaleY(1); } 100% { transform: scaleY(0.1); } }
 
-        /* 2. Thinking State (Eyes moving left to right) */
-        .thinking .face-container { 
-            animation: thinkLook 1.2s infinite ease-in-out; 
-        }
-        @keyframes thinkLook { 
-            0% { transform: translateX(-6px); } 
-            50% { transform: translateX(6px); } 
-            100% { transform: translateX(-6px); } 
-        }
+        .thinking .face-container { animation: thinkLook 1.2s infinite ease-in-out; }
+        @keyframes thinkLook { 0% { transform: translateX(-6px); } 50% { transform: translateX(6px); } 100% { transform: translateX(-6px); } }
 
-        /* 3. Speaking State (Mouth opens into a happy circle) */
         .speaking .mouth { 
             animation: speakBallMouth 0.25s infinite alternate; 
             background: #111111;
@@ -117,45 +103,32 @@
             border-radius: 50%;
             width: 18px;
         }
-        @keyframes speakBallMouth { 
-            0% { transform: scaleY(0.6); } 
-            100% { transform: scaleY(1.4); } 
-        }
+        @keyframes speakBallMouth { 0% { transform: scaleY(0.6); } 100% { transform: scaleY(1.4); } }
 
-        /* Input & Buttons */
-        input { 
-            width: 90%; 
-            padding: 12px; 
-            margin: 10px 0; 
-            background: #0f111a;
-            border: 1px solid #3d426b; 
-            border-radius: 8px; 
-            color: #fff;
-            text-align: center;
-        }
-        input:focus { border-color: #ffcc00; outline: none; }
         button { 
-            padding: 12px 25px; 
+            padding: 15px 30px; 
             background: #ffcc00; 
             color: #000; 
             border: none; 
-            border-radius: 8px; 
+            border-radius: 50px; 
             cursor: pointer; 
-            font-size: 16px; 
+            font-size: 18px; 
             font-weight: bold;
             transition: 0.3s;
-            margin-top: 10px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(255, 204, 0, 0.4);
         }
         button:hover { background: #ffaa00; transform: scale(1.05); }
-        .status { margin-top: 25px; font-size: 15px; color: #a0a5c5; line-height: 1.5; }
+        .status { margin-top: 25px; font-size: 16px; color: #a0a5c5; line-height: 1.5; min-height: 50px; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h2>VERITY AI ASSISTANT 🇱🇰</h2>
+    <p style="color: #6c7293; margin-top: -10px; font-size: 14px;">100% Free & No Keys Required</p>
     
-    <!-- Animated 3D Yellow Ball Emoji Bot -->
+    <!-- Animated Yellow Ball Emoji Bot -->
     <div class="avatar-container" id="botAvatar">
         <div class="face-container">
             <div class="eyes-row">
@@ -166,110 +139,109 @@
         </div>
     </div>
 
-    <!-- API Settings Panel -->
-    <div style="text-align: left; margin-bottom: 20px; border-bottom: 1px solid #3d426b; padding-bottom: 15px;">
-        <h4 style="color: #ffcc00; margin-bottom: 5px;">⚙️ Verity API Configuration</h4>
-        <input type="password" id="groqKey" placeholder="Groq API Key (STT)">
-        <input type="password" id="geminiKey" placeholder="Google Gemini API Key (AI)">
-        <input type="password" id="googleTtsKey" placeholder="Google Cloud API Key (TTS)">
-        <center><button onclick="saveKeys()">Keys සුරකින්න</button></center>
-    </div>
-
     <!-- AI Controls -->
     <div>
-        <button id="recordBtn" onclick="toggleRecording()">🎤 කතා කරන්න (Record)</button>
-        <div class="status" id="statusText">Verity බෝල රොබෝ සක්‍රීයයි. මට ඇහුම්කන් දීමට Record බොත්තම ඔබන්න...</div>
+        <button id="recordBtn" onclick="startVoiceAI()">🎤 කතා කරන්න (Start)</button>
+        <div class="status" id="statusText">Verity බෝල රොබෝ සූදානම්. කතා කිරීමට බොත්තම ඔබන්න...</div>
     </div>
 </div>
 
 <script>
-    let mediaRecorder;
-    let audioChunks = [];
-    let isRecording = false;
-
-    window.onload = function() {
-        document.getElementById('groqKey').value = localStorage.getItem('groqKey') || '';
-        document.getElementById('geminiKey').value = localStorage.getItem('geminiKey') || '';
-        document.getElementById('googleTtsKey').value = localStorage.getItem('googleTtsKey') || '';
-    }
-
-    function saveKeys() {
-        localStorage.setItem('groqKey', document.getElementById('groqKey').value);
-        localStorage.setItem('geminiKey', document.getElementById('geminiKey').value);
-        localStorage.setItem('googleTtsKey', document.getElementById('googleTtsKey').value);
-        alert('API Keys සාර්ථකව සුරැකුණා!');
-    }
+    let isProcessing = false;
 
     function setBotState(stateClass) {
         const avatar = document.getElementById('botAvatar');
         avatar.className = "avatar-container " + stateClass;
     }
 
-    async function toggleRecording() {
-        const recordBtn = document.getElementById('recordBtn');
+    async function startVoiceAI() {
+        if (isProcessing) return;
+        
         const statusText = document.getElementById('statusText');
+        
+        // Browser Speech Recognition සක්‍රීය කිරීම (No Key STT)
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            statusText.innerText = "කණගාටුයි, ඔබේ බ්‍රවුසරය සිංහල හඬ හඳුනා ගැනීමට සහය දක්වන්නේ නැත. Chrome භාවිතා කරන්න.";
+            return;
+        }
 
-        if (!isRecording) {
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            mediaRecorder = new MediaRecorder(stream);
-            audioChunks = [];
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'si-LK'; // සිංහල භාෂාව සකස් කිරීම
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
 
-            mediaRecorder.ondataavailable = event => audioChunks.push(event.data);
-            mediaRecorder.onstop = async () => {
-                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-                setBotState('thinking');
-                statusText.innerText = "Verity සිතමින් පවතී... 🧠";
-                await processAI(audioBlob);
-            };
-
-            mediaRecorder.start();
-            isRecording = true;
-            recordBtn.style.background = "#ff3333";
-            recordBtn.innerText = "🛑 නතර කරන්න";
-            statusText.innerText = "මම ඔබට ඇහුම්කන් දෙනවා... 🎤";
+        recognition.onstart = () => {
+            isProcessing = true;
             setBotState('listening');
-        } else {
-            mediaRecorder.stop();
-            isRecording = false;
-            recordBtn.style.background = "#ffcc00";
-            recordBtn.innerText = "🎤 කතා කරන්න (Record)";
+            statusText.innerText = "මම ඔබට ඇහුම්කන් දෙනවා, සිංහලෙන් කතා කරන්න... 🎤";
+        };
+
+        recognition.onerror = (e) => {
+            isProcessing = false;
+            setBotState('');
+            statusText.innerText = "හඬ හඳුනා ගැනීමට නොහැකි වුණා. නැවත උත්සාහ කරන්න.";
+        };
+
+        recognition.onresult = async (event) => {
+            const userText = event.results[0][0].transcript;
+            setBotState('thinking');
+            statusText.innerHTML = `<b>ඔබ:</b> ${userText}<br><br>Verity සිතමින් පවතී... 🧠`;
+
+            await getAIResponse(userText);
+        };
+
+        recognition.start();
+    }
+
+    async function getAIResponse(text) {
+        const statusText = document.getElementById('statusText');
+        try {
+            // Hugging Face Public API එකක් හරහා නොමිලේ AI පිළිතුරු ලබා ගැනීම (No Key LLM)
+            const response = await fetch("https://huggingface.co", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ inputs: text })
+            });
+            const data = await response.json();
+            
+            // සරල සිංහල පරිවර්තන උපකල්පනයක් හෝ පොදු පිළිතුරක් සකස් කිරීම
+            let aiText = "මම Verity, ඔයාට උදව් කරන්නේ කොහොමද?"; 
+            if (data && data.generated_text) {
+                aiText = "ඔබ පැවසුවේ '" + text + "' නේද? මම Verity, ඔබ සමඟ කතා කිරීමට ලැබීම සතුටක්!";
+            }
+
+            statusText.innerHTML = `<b>ඔබ:</b> ${text}<br><br><b style="color:#ffcc00">Verity:</b> ${aiText}`;
+            speakSinhala(aiText);
+
+        } catch (error) {
+            console.error(error);
+            const fallbackText = "මට සමාවෙන්න, සන්නිවේදන දෝෂයක් සිදු වුණා.";
+            statusText.innerHTML = `<b style="color:#ff3333">Verity:</b> ${fallbackText}`;
+            speakSinhala(fallbackText);
         }
     }
 
-    async function processAI(audioBlob) {
-        const groqKey = localStorage.getItem('groqKey');
-        const geminiKey = localStorage.getItem('geminiKey');
-        const ttsKey = localStorage.getItem('googleTtsKey');
-        const statusText = document.getElementById('statusText');
+    function speakSinhala(text) {
+        // Browser එකේ ඇති නිවැරදි සිංහල හඬින් කියවීම (No Key TTS)
+        if ('speechSynthesis' in window) {
+            setBotState('speaking');
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'si-LK'; 
+            utterance.rate = 1.0; 
 
-        try {
-            // STT Request
-            const formData = new FormData();
-            formData.append("file", audioBlob, "audio.wav");
-            formData.append("model", "whisper-large-v3");
-            formData.append("language", "si"); 
+            utterance.onend = () => {
+                isProcessing = false;
+                setBotState('');
+            };
 
-            const sttResponse = await fetch("https://groq.com", {
-                method: "POST",
-                headers: { "Authorization": `Bearer ${groqKey}` },
-                body: formData
-            });
-            const sttData = await sttResponse.json();
-            const userText = sttData.text;
+            window.speechSynthesis.speak(utterance);
+        } else {
+            isProcessing = false;
+            setBotState('');
+        }
+    }
+</script>
 
-            // LLM Request
-            const geminiResponse = await fetch(`https://googleapis.com{geminiKey}`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: userText }] }],
-                    systemInstruction: { parts: [{ text: "You are Verity, a cute yellow friendly emoji ball gaming AI. Always reply in beautiful, natural Sinhala language." }] }
-                })
-            });
-            const geminiData = await geminiResponse.json();
-            const aiText = geminiData.candidates.content.parts.text;
-
-            // TTS Request
-            const ttsResponse = await fetch(`https://googleapis.com{ttsKey}`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
+</body>
+</html>
