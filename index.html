@@ -3,34 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sinhala Voice AI Assistant</title>
+    <title>Verity Style Sinhala AI</title>
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f9; text-align: center; }
-        .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        input { width: 90%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
-        button { padding: 10px 20px; background: #0070f3; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
-        button:hover { background: #0051a8; }
-        .status { margin-top: 20px; font-weight: bold; color: #333; }
+        /* Gaming Dark Theme Styling */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            padding: 20px; 
+            background: #0f111a; 
+            color: #ffffff;
+            text-align: center; 
+        }
+        .container { 
+            max-width: 500px; 
+            margin: 40px auto; 
+            background: #1a1d2e; 
+            padding: 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5); 
+            border: 2px solid #ffcc00;
+        }
+        
+        /* Animated Cute Yellow Ball Emoji Bot */
+        .avatar-container {
+            margin: 30px auto;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle at 30% 30%, #ffee55, #ffcc00, #cc9900);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 25px rgba(255, 204, 0, 0.6), inset -10px -10px 20px rgba(0,0,0,0.2);
+            position: relative;
+            animation: floatBall 3s ease-in-out infinite;
+        }
+
+        /* 3D Ball Face Details */
+        .face-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 60px;
+            position: relative;
+            margin-top: 10px;
+        }
+        .eyes-row {
+            display: flex;
+            justify-content: space-between;
+            width: 65px;
+            margin-bottom: 8px;
+        }
+        .eye {
+            width: 16px;
+            height: 16px;
+            background: #111111;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.2s;
+        }
+        /* Eye highlights for cute look */
+        .eye::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 3px;
+            width: 5px;
+            height: 5px;
+            background: white;
+            border-radius: 50%;
+        }
+        .mouth {
+            width: 24px;
+            height: 12px;
+            border-bottom: 4px solid #111111;
+            border-radius: 0 0 12px 12px;
+            transition: all 0.2s;
+        }
+
+        /* Ball Bot Animation States */
+        @keyframes floatBall {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* 1. Listening State (Blinking Eyes) */
+        .listening .eye { 
+            animation: blinkEyes 0.6s infinite alternate; 
+        }
+        @keyframes blinkEyes { 
+            0% { transform: scaleY(1); } 
+            100% { transform: scaleY(0.1); } 
+        }
+
+        /* 2. Thinking State (Eyes moving left to right) */
+        .thinking .face-container { 
+            animation: thinkLook 1.2s infinite ease-in-out; 
+        }
+        @keyframes thinkLook { 
+            0% { transform: translateX(-6px); } 
+            50% { transform: translateX(6px); } 
+            100% { transform: translateX(-6px); } 
+        }
+
+        /* 3. Speaking State (Mouth opens into a happy circle) */
+        .speaking .mouth { 
+            animation: speakBallMouth 0.25s infinite alternate; 
+            background: #111111;
+            height: 16px;
+            border-radius: 50%;
+            width: 18px;
+        }
+        @keyframes speakBallMouth { 
+            0% { transform: scaleY(0.6); } 
+            100% { transform: scaleY(1.4); } 
+        }
+
+        /* Input & Buttons */
+        input { 
+            width: 90%; 
+            padding: 12px; 
+            margin: 10px 0; 
+            background: #0f111a;
+            border: 1px solid #3d426b; 
+            border-radius: 8px; 
+            color: #fff;
+            text-align: center;
+        }
+        input:focus { border-color: #ffcc00; outline: none; }
+        button { 
+            padding: 12px 25px; 
+            background: #ffcc00; 
+            color: #000; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+        button:hover { background: #ffaa00; transform: scale(1.05); }
+        .status { margin-top: 25px; font-size: 15px; color: #a0a5c5; line-height: 1.5; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>සිංහල AI Voice Assistant 🇱🇰</h2>
+    <h2>VERITY AI ASSISTANT 🇱🇰</h2>
     
+    <!-- Animated 3D Yellow Ball Emoji Bot -->
+    <div class="avatar-container" id="botAvatar">
+        <div class="face-container">
+            <div class="eyes-row">
+                <div class="eye"></div>
+                <div class="eye"></div>
+            </div>
+            <div class="mouth"></div>
+        </div>
+    </div>
+
     <!-- API Settings Panel -->
-    <div style="text-align: left; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
-        <h4>⚙️ API Settings (Verity Mod Style)</h4>
-        <input type="password" id="groqKey" placeholder="Groq API Key (STT සඳහා)">
-        <input type="password" id="geminiKey" placeholder="Google Gemini API Key (AI සඳහා)">
-        <input type="password" id="googleTtsKey" placeholder="Google Cloud API Key (TTS සඳහා)">
-        <button onclick="saveKeys()">Keys සුරකින්න</button>
+    <div style="text-align: left; margin-bottom: 20px; border-bottom: 1px solid #3d426b; padding-bottom: 15px;">
+        <h4 style="color: #ffcc00; margin-bottom: 5px;">⚙️ Verity API Configuration</h4>
+        <input type="password" id="groqKey" placeholder="Groq API Key (STT)">
+        <input type="password" id="geminiKey" placeholder="Google Gemini API Key (AI)">
+        <input type="password" id="googleTtsKey" placeholder="Google Cloud API Key (TTS)">
+        <center><button onclick="saveKeys()">Keys සුරකින්න</button></center>
     </div>
 
     <!-- AI Controls -->
     <div>
         <button id="recordBtn" onclick="toggleRecording()">🎤 කතා කරන්න (Record)</button>
-        <div class="status" id="statusText">ලෑස්තියි...</div>
+        <div class="status" id="statusText">Verity බෝල රොබෝ සක්‍රීයයි. මට ඇහුම්කන් දීමට Record බොත්තම ඔබන්න...</div>
     </div>
 </div>
 
@@ -39,7 +187,6 @@
     let audioChunks = [];
     let isRecording = false;
 
-    // Browser එකේ Keys සේව් කරගැනීම
     window.onload = function() {
         document.getElementById('groqKey').value = localStorage.getItem('groqKey') || '';
         document.getElementById('geminiKey').value = localStorage.getItem('geminiKey') || '';
@@ -53,7 +200,11 @@
         alert('API Keys සාර්ථකව සුරැකුණා!');
     }
 
-    // 1. Microphone එක Record කිරීම
+    function setBotState(stateClass) {
+        const avatar = document.getElementById('botAvatar');
+        avatar.className = "avatar-container " + stateClass;
+    }
+
     async function toggleRecording() {
         const recordBtn = document.getElementById('recordBtn');
         const statusText = document.getElementById('statusText');
@@ -66,22 +217,25 @@
             mediaRecorder.ondataavailable = event => audioChunks.push(event.data);
             mediaRecorder.onstop = async () => {
                 const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-                statusText.innerText = "හඬ අකුරු වලට හරවමින් (STT)...";
+                setBotState('thinking');
+                statusText.innerText = "Verity සිතමින් පවතී... 🧠";
                 await processAI(audioBlob);
             };
 
             mediaRecorder.start();
             isRecording = true;
+            recordBtn.style.background = "#ff3333";
             recordBtn.innerText = "🛑 නතර කරන්න";
-            statusText.innerText = "ඔබේ සිංහල හඬ පටිගත වෙමින් පවතී...";
+            statusText.innerText = "මම ඔබට ඇහුම්කන් දෙනවා... 🎤";
+            setBotState('listening');
         } else {
             mediaRecorder.stop();
             isRecording = false;
+            recordBtn.style.background = "#ffcc00";
             recordBtn.innerText = "🎤 කතා කරන්න (Record)";
         }
     }
 
-    // Main AI Pipeline
     async function processAI(audioBlob) {
         const groqKey = localStorage.getItem('groqKey');
         const geminiKey = localStorage.getItem('geminiKey');
@@ -89,7 +243,7 @@
         const statusText = document.getElementById('statusText');
 
         try {
-            // 2. STT - Groq Whisper හරහා සිං格ල හඬ Text කිරීම
+            // STT Request
             const formData = new FormData();
             formData.append("file", audioBlob, "audio.wav");
             formData.append("model", "whisper-large-v3");
@@ -102,44 +256,20 @@
             });
             const sttData = await sttResponse.json();
             const userText = sttData.text;
-            statusText.innerText = `ඔබ: ${userText}\n\nAI සිතමින් පවතී...`;
 
-            // 3. LLM - Gemini හරහා සිංහල පිළිතුරක් සෑදීම
+            // LLM Request
             const geminiResponse = await fetch(`https://googleapis.com{geminiKey}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     contents: [{ parts: [{ text: userText }] }],
-                    systemInstruction: { parts: [{ text: "You are a helpful AI. Always reply in fluent, natural Sinhala language." }] }
+                    systemInstruction: { parts: [{ text: "You are Verity, a cute yellow friendly emoji ball gaming AI. Always reply in beautiful, natural Sinhala language." }] }
                 })
             });
             const geminiData = await geminiResponse.json();
-            const aiText = geminiData.candidates[0].content.parts[0].text;
-            statusText.innerText = `AI: ${aiText}\n\nපිළිතුර ශබ්ද නගා කියවයි...`;
+            const aiText = geminiData.candidates.content.parts.text;
 
-            // 4. TTS - Google Cloud TTS හරහා සිංහලෙන් කියවීම
+            // TTS Request
             const ttsResponse = await fetch(`https://googleapis.com{ttsKey}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    input: { text: aiText },
-                    voice: { languageCode: "si-LK", name: "si-LK-Standard-A" },
-                    audioConfig: { audioEncoding: "MP3" }
-                })
-            });
-            const ttsData = await ttsResponse.json();
-            
-            // Audio Playback
-            const audio = new Audio(`data:audio/mp3;base64,${ttsData.audioContent}`);
-            audio.play();
-            statusText.innerText = `AI: ${aiText}`;
-
-        } catch (error) {
-            console.error(error);
-            statusText.innerText = "Error එකක් සිදු වුණා! API Keys නිවැරදිදැයි බලන්න.";
-        }
-    }
-</script>
-
-</body>
-</html>
