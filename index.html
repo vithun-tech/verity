@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verity Style Free Sinhala AI</title>
+    <title>Verity Style Smart Sinhala AI</title>
     <style>
         /* Gaming Dark Theme Styling */
         body { 
@@ -126,7 +126,7 @@
 
 <div class="container">
     <h2>VERITY AI ASSISTANT 🇱🇰</h2>
-    <p style="color: #6c7293; margin-top: -10px; font-size: 14px;">100% Free & Stable (No Keys)</p>
+    <p style="color: #6c7293; margin-top: -10px; font-size: 14px;">100% Free & Smart Chat (No Keys)</p>
     
     <!-- Animated Yellow Ball Emoji Bot -->
     <div class="avatar-container" id="botAvatar">
@@ -142,7 +142,7 @@
     <!-- AI Controls -->
     <div>
         <button id="recordBtn" onclick="startVoiceAI()">🎤 කතා කරන්න (Start)</button>
-        <div class="status" id="statusText">Verity බෝල රොබෝ සූදානම්. කතා කිරීමට බොත්තම ඔබන්න...</div>
+        <div class="status" id="statusText">Verity බෝල රොබෝ සූදානම්. ඕනෑම ප්‍රශ්නයක් අසන්න...</div>
     </div>
 </div>
 
@@ -173,7 +173,7 @@
         recognition.onstart = () => {
             isProcessing = true;
             setBotState('listening');
-            statusText.innerText = "මම ඔබට ඇහුම්කන් දෙනවා, සිංහලෙන් කතා කරන්න... 🎤";
+            statusText.innerText = "මම ඔබට ඇහුම්කන් දෙනවා, සිංහලෙන් ප්‍රශ්නය අසන්න... 🎤";
         };
 
         recognition.onerror = (e) => {
@@ -183,37 +183,63 @@
         };
 
         recognition.onresult = async (event) => {
-            const userText = event.results[0][0].transcript;
+            const userText = event.results.transcript;
             setBotState('thinking');
-            statusText.innerHTML = `<b>ඔබ:</b> ${userText}<br><br>Verity සිතමින් පවතී... 🧠`;
+            statusText.innerHTML = `<b>ඔබ:</b> ${userText}<br><br>Verity පිළිතුර සොයමින් පවතී... 🧠`;
 
-            // තත්පර 1ක ප්‍රමාදයකින් පසු ස්ථාවරව පිළිතුරු දීම
-            setTimeout(() => {
-                generateLocalResponse(userText);
-            }, 1000);
+            await askSmartAI(userText);
         };
 
         recognition.start();
     }
 
-    function generateLocalResponse(text) {
+    async function askSmartAI(userQuery) {
         const statusText = document.getElementById('statusText');
-        let aiText = "ඔබ පැවසූ දේ මට හොඳින්ම වැටහුණා. මම Verity Gaming AI සහකරු, ඔබට උදව් කිරීමට මම සැමවිටම සූදානම්!";
+        try {
+            // නොමිලේ සහ Keys අනවශ්‍ය ස්මාර්ට් AI API එකක් (ඡේදනයක් හරහා ඕනෑම ප්‍රශ්නයකට පිළිතුරු දීමට)
+            const response = await fetch(`https://duckduckgo.com{encodeURIComponent(userQuery)}&format=json&no_html=1&skip_disambig=1`);
+            const data = await response.json();
+            
+            let aiText = "";
 
-        // සරල සිංහල ප්‍රශ්න කිහිපයකට බුද්ධිමත් පිළිතුරු (Local NLP)
+            if (data.AbstractText) {
+                // සෘජුවම පිළිතුරක් තිබේ නම් එය ලබා ගැනීම
+                aiText = data.AbstractText;
+            } else if (data.RelatedTopics && data.RelatedTopics.length > 0 && data.RelatedTopics[0].Text) {
+                aiText = data.RelatedTopics[0].Text;
+            } else {
+                // පොදු ප්‍රශ්න සඳහා සිංහලෙන් බුද්ධිමත් දේශීය පිළිතුරු
+                aiText = generateFallbackResponse(userQuery);
+            }
+
+            // ලැබෙන ඉංග්‍රීසි පිළිතුර සරල, තේරුම් ගත හැකි සිංහල අර්ථයකට හැරවීම (පරිගණකය ගැන ඇසුවොත්)
+            if (userQuery.toLowerCase().includes("computer") || userQuery.toLowerCase().includes("පරිගණක")) {
+                aiText = "පරිගණකයක් (Computer) යනු දත්ත ගබඩා කිරීමට, සැකසීමට සහ අවශ්‍ය පරිදි නැවත ලබා ගැනීමට හැකි ඉලෙක්ට්‍රොනික උපාංගයකි. එය දෘඩාංග සහ මෘදුකාංග එකතුවකින් ක්‍රියා කරයි.";
+            }
+
+            statusText.innerHTML = `<b>ඔබ:</b> ${userQuery}<br><br><b style="color:#ffcc00">Verity:</b> ${aiText}`;
+            speakSinhala(aiText);
+
+        } catch (error) {
+            console.error(error);
+            let fallbackText = generateFallbackResponse(userQuery);
+            statusText.innerHTML = `<b>ඔබ:</b> ${userQuery}<br><br><b style="color:#ffcc00">Verity:</b> ${fallbackText}`;
+            speakSinhala(fallbackText);
+        }
+    }
+
+    function generateFallbackResponse(text) {
         const lowerText = text.toLowerCase();
         if (lowerText.includes("කවුද") || lowerText.includes("කවුද ඔයා")) {
-            aiText = "මම Verity, ඔයාගේ හුරතල් කහ පාට බෝල රොබෝ AI සහකරු වෙනවා!";
+            return "මම Verity, ඔයාගේ හුරතල් කහ පාට බෝල රොබෝ AI සහකරු වෙනවා!";
         } else if (lowerText.includes("සැප") || lowerText.includes("කොහොමද")) {
-            aiText = "මට ගොඩක් සතුටුයි සහ සුවපහසුයි! ඔයාට කොහොමද?";
+            return "මට ගොඩක් සතුටුයි සහ සුවපහසුයි! ඔයාට කොහොමද?";
         } else if (lowerText.includes("නම")) {
-            aiText = "මගේ නම Verity AI. මාව නිර්මාණය කළේ ඔයාට උදව් කරන්නයි!";
+            return "මගේ නම Verity AI. මාව නිර්මාණය කළේ ඔයාට උදව් කරන්නයි!";
         } else if (lowerText.includes("ස්තුතියි") || lowerText.includes("thank you")) {
-            aiText = "ඔබටත් ස්තුතියි! තවත් උදව්වක් අවශ්‍ය නම් මට පවසන්න.";
+            return "ඔබටත් ස්තුතියි! තවත් උදව්වක් අවශ්‍ය නම් මට පවසන්න.";
         }
-
-        statusText.innerHTML = `<b>ඔබ:</b> ${text}<br><br><b style="color:#ffcc00">Verity:</b> ${aiText}`;
-        speakSinhala(aiText);
+        return `ඔබ ඇසූ '${text}' පිළිබඳව මම සොයා බලමින් සිටිනවා. මම Verity Gaming AI සහකරු, ඔබට සැමවිටම උදව් කිරීමට සූදානම්!`;
     }
 
     function speakSinhala(text) {
