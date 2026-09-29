@@ -72,26 +72,26 @@
         }
 
         /* --- MOLY AI REAL ANIMATIONS --- */
-        
-        /* Smooth Floating Animation */
         @keyframes molyFloat {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-12px); }
             100% { transform: translateY(0px); }
         }
 
-        /* 1. Listening State (Curious Eyes & Mouth) */
+        /* 1. Listening State */
         .listening .eye { 
             height: 4px;
             margin-top: 6px;
+            background: #000;
         }
         .listening .mouth {
             width: 16px;
             height: 16px;
             border-radius: 50%;
+            background: #000;
         }
 
-        /* 2. Thinking State (Processing Lights) */
+        /* 2. Thinking State */
         .thinking .face-container { 
             animation: molyThinking 0.8s infinite alternate ease-in-out; 
         }
@@ -101,9 +101,10 @@
         }
         .thinking .eye { background: #00ffcc; box-shadow: 0 0 10px #00ffcc; }
 
-        /* 3. Speaking State (Talking Mouth & Glow Pulse) */
+        /* 3. Speaking State */
         .speaking .mouth { 
             animation: molyTalking 0.23s infinite alternate ease-in-out;
+            background: #090a0f;
         }
         @keyframes molyTalking { 
             0% { height: 4px; width: 35px; } 
@@ -193,6 +194,7 @@
         const recognition = new SpeechRecognition();
         recognition.lang = 'si-LK'; 
         recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
 
         recognition.onstart = () => {
             isProcessing = true;
@@ -200,20 +202,28 @@
             statusText.innerHTML = "<center>මොලී ඔබට ඇහුම්කන් දෙයි. සිංහලෙන් අසන්න... 🎤</center>";
         };
 
-        recognition.onerror = () => {
+        recognition.onerror = (event) => {
             isProcessing = false;
             setBotState('');
-            statusText.innerHTML = "<center>හඬ හඳුනා ගැනීමට නොහැකි වුණා. නැවත උත්සාහ කරන්න.</center>";
+            statusText.innerHTML = "<center>මයික්‍රෆෝන දෝෂයක් හෝ හඬ හඳුනා ගැනීමට නොහැකි වුණා. නැවත උත්සාහ කරන්න.</center>";
+            console.error("Speech Recognition Error: ", event.error);
         };
 
         recognition.onresult = async (event) => {
-            const userText = event.results.transcript;
-            setBotState('thinking');
-            statusText.innerHTML = `<b>ඔබ:</b> ${userText}<br><br><center>Moly පිළිතුර සකස් කරමින් පවතී... 🧠</center>`;
+            // මෙන්න මෙතැන තිබූ undefined වැරැද්ද නිවැරදි කරන ලදී
+            if (event.results && event.results[0] && event.results[0][0]) {
+                const userText = event.results[0][0].transcript;
+                setBotState('thinking');
+                statusText.innerHTML = `<b>ඔබ:</b> ${userText}<br><br><center>Moly පිළිතුර සකස් කරමින් පවතී... 🧠</center>`;
 
-            setTimeout(() => {
-                askMolyBrain(userText);
-            }, 1200);
+                setTimeout(() => {
+                    askMolyBrain(userText);
+                }, 1200);
+            } else {
+                isProcessing = false;
+                setBotState('');
+                statusText.innerHTML = "<center>කණගාටුයි, හඬ පැහැදිලි නැත. නැවත පවසන්න.</center>";
+            }
         };
 
         recognition.start();
@@ -257,10 +267,3 @@
             window.speechSynthesis.speak(utterance);
         } else {
             isProcessing = false;
-            setBotState('');
-        }
-    }
-</script>
-
-</body>
-</html>
