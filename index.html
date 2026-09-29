@@ -3,132 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verity Style Smart Sinhala AI</title>
+    <title>Real Verity JE Mod Style Sinhala AI</title>
     <style>
-        /* Gaming Dark Theme Styling */
+        /* Verity Java Edition Mod Dark UI */
         body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            font-family: 'Consolas', 'Segoe UI', monospace; 
             padding: 20px; 
-            background: #0f111a; 
-            color: #ffffff;
+            background: #0b0c10; 
+            color: #1f2833;
             text-align: center; 
         }
         .container { 
             max-width: 500px; 
             margin: 40px auto; 
-            background: #1a1d2e; 
+            background: #1f2833; 
             padding: 30px; 
-            border-radius: 20px; 
-            box-shadow: 0 8px 32px rgba(0,0,0,0.5); 
-            border: 2px solid #ffcc00;
+            border-radius: 16px; 
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.2); 
+            border: 2px solid #00ffcc;
         }
+        h2 { color: #00ffcc; text-shadow: 0 0 10px #00ffcc; margin-bottom: 5px; }
         
-        /* Animated Cute Yellow Ball Emoji Bot */
+        /* Real Verity JE Mod Animated 3D Ball */
         .avatar-container {
             margin: 30px auto;
-            width: 120px;
-            height: 120px;
-            background: radial-gradient(circle at 30% 30%, #ffee55, #ffcc00, #cc9900);
+            width: 130px;
+            height: 130px;
+            background: radial-gradient(circle at 35% 35%, #fff066, #ffcc00, #b38f00);
             border-radius: 50%;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 25px rgba(255, 204, 0, 0.6), inset -10px -10px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 0 35px rgba(255, 204, 0, 0.5), inset -10px -10px 25px rgba(0,0,0,0.3);
             position: relative;
-            animation: floatBall 3s ease-in-out infinite;
+            animation: minecraftFloat 2.5s ease-in-out infinite;
         }
 
-        /* 3D Ball Face Details */
+        /* LED Display Matrix Face (Like Verity Mod) */
         .face-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 80px;
-            height: 60px;
-            position: relative;
-            margin-top: 10px;
+            width: 90px;
+            height: 70px;
+            transition: all 0.3s ease;
         }
         .eyes-row {
             display: flex;
             justify-content: space-between;
             width: 65px;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
         .eye {
             width: 16px;
             height: 16px;
-            background: #111111;
-            border-radius: 50%;
+            background: #0f111a;
+            border-radius: 4px; /* Blocky Cyber Look */
             position: relative;
-            transition: all 0.2s;
-        }
-        .eye::after {
-            content: '';
-            position: absolute;
-            top: 2px;
-            left: 3px;
-            width: 5px;
-            height: 5px;
-            background: white;
-            border-radius: 50%;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 5px rgba(0,0,0,0.5);
         }
         .mouth {
-            width: 24px;
-            height: 12px;
-            border-bottom: 4px solid #111111;
-            border-radius: 0 0 12px 12px;
-            transition: all 0.2s;
+            width: 35px;
+            height: 6px;
+            background: #0f111a;
+            border-radius: 2px;
+            transition: all 0.2s ease;
         }
 
-        /* Ball Bot Animation States */
-        @keyframes floatBall {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-12px); }
-            100% { transform: translateY(0px); }
+        /* --- VERITY JE MOD REAL ANIMATIONS --- */
+        
+        /* Minecraft Physics Floating */
+        @keyframes minecraftFloat {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
         }
 
-        /* Animations */
-        .listening .eye { animation: blinkEyes 0.6s infinite alternate; }
-        @keyframes blinkEyes { 0% { transform: scaleY(1); } 100% { transform: scaleY(0.1); } }
-
-        .thinking .face-container { animation: thinkLook 1.2s infinite ease-in-out; }
-        @keyframes thinkLook { 0% { transform: translateX(-6px); } 50% { transform: translateX(6px); } 100% { transform: translateX(-6px); } }
-
-        .speaking .mouth { 
-            animation: speakBallMouth 0.25s infinite alternate; 
-            background: #111111;
-            height: 16px;
+        /* 1. Listening State (Curious Winking Eyes) */
+        .listening .eye { 
+            height: 4px;
+            margin-top: 6px;
+            background: #000;
+        }
+        .listening .mouth {
+            width: 15px;
+            height: 15px;
             border-radius: 50%;
-            width: 18px;
         }
-        @keyframes speakBallMouth { 0% { transform: scaleY(0.6); } 100% { transform: scaleY(1.4); } }
 
-        button { 
-            padding: 15px 30px; 
-            background: #ffcc00; 
-            color: #000; 
-            border: none; 
-            border-radius: 50px; 
-            cursor: pointer; 
-            font-size: 18px; 
-            font-weight: bold;
-            transition: 0.3s;
-            margin-top: 20px;
-            box-shadow: 0 4px 15px rgba(255, 204, 0, 0.4);
+        /* 2. Thinking State (Matrix LED Scan Animation) */
+        .thinking .face-container { 
+            animation: modThinking 0.8s infinite alternate ease-in-out; 
         }
-        button:hover { background: #ffaa00; transform: scale(1.05); }
-        .status { margin-top: 25px; font-size: 16px; color: #a0a5c5; line-height: 1.5; min-height: 50px; }
+        @keyframes modThinking { 
+            0% { transform: scale(0.9) translateX(-5px); } 
+            100% { transform: scale(1) translateX(5px); } 
+        }
+        .thinking .eye { background: #00ffcc; box-shadow: 0 0 8px #00ffcc; }
+
+        /* 3. Speaking State (Dynamic Wave Talking Mouth) */
+        .speaking .mouth { 
+            animation: modTalking 0.2s infinite alternate ease-in-out;
+            background: #0f111a;
+        }
+        @keyframes modTalking { 
+            0% { height: 4px; width: 35px; border-radius: 2px; } 
+            100% { height: 22px; width: 25px; border-radius: 8px; } 
+        }
+        .speaking .avatar-container {
+            animation: minecraftFloat 1.5s ease-in-out infinite, voicePulse 0.4s infinite alternate;
+        }
+        @keyframes voicePulse {
+            0% { box-shadow: 0 0 25px rgba(255, 204, 0, 0.5); }
+            100% { box-shadow: 0 0 45px rgba(0, 255, 204, 0.8); }
+        }
+
+        /* Controls */
+        button { 
+            padding: 15px 35px; 
+            background: #00ffcc; 
+            color: #0b0c10; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold;
+            font-family: 'Consolas', monospace;
+            transition: 0.2s;
+            margin-top: 20px;
+            box-shadow: 0 4px 0px #00b399;
+        }
+        button:hover { background: #66ffec; transform: translateY(-2px); box-shadow: 0 6px 0px #00b399; }
+        button:active { transform: translateY(4px); box-shadow: none; }
+        
+        .status { 
+            margin-top: 25px; 
+            font-size: 14px; 
+            color: #c5c6c7; 
+            line-height: 1.6; 
+            text-align: left; 
+            padding: 15px; 
+            background: #0b0c10; 
+            border-radius: 4px; 
+            border-left: 4px solid #00ffcc;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>VERITY AI ASSISTANT 🇱🇰</h2>
-    <p style="color: #6c7293; margin-top: -10px; font-size: 14px;">100% Free & Smart Chat (No Keys)</p>
+    <h2>VERITY AI MOD v1.5</h2>
+    <p style="color: #ffcc00; margin-top: -5px; font-size: 12px; letter-spacing: 2px;">JAVA EDITION STYLE</p>
     
-    <!-- Animated Yellow Ball Emoji Bot -->
+    <!-- Animated Real Verity Ball Bot -->
     <div class="avatar-container" id="botAvatar">
         <div class="face-container">
             <div class="eyes-row">
@@ -141,8 +170,8 @@
 
     <!-- AI Controls -->
     <div>
-        <button id="recordBtn" onclick="startVoiceAI()">🎤 කතා කරන්න (Start)</button>
-        <div class="status" id="statusText">Verity බෝල රොබෝ සූදානම්. ඕනෑම ප්‍රශ්නයක් අසන්න...</div>
+        <button id="recordBtn" onclick="startVoiceAI()">[ TALK TO VERITY ]</button>
+        <div class="status" id="statusText"><center>> Verity system online. Ready for user voice prompt...</center></div>
     </div>
 </div>
 
@@ -161,85 +190,60 @@
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         
         if (!SpeechRecognition) {
-            statusText.innerText = "කණගාටුයි, ඔබේ බ්‍රවුසරය සිංහල හඬ හඳුනා ගැනීමට සහය දක්වන්නේ නැත. Google Chrome භාවිතා කරන්න.";
+            statusText.innerHTML = "<center>> Error: Chrome browser required for matrix sync.</center>";
             return;
         }
 
         const recognition = new SpeechRecognition();
         recognition.lang = 'si-LK'; 
         recognition.interimResults = false;
-        recognition.maxAlternatives = 1;
 
         recognition.onstart = () => {
             isProcessing = true;
             setBotState('listening');
-            statusText.innerText = "මම ඔබට ඇහුම්කන් දෙනවා, සිංහලෙන් ප්‍රශ්නය අසන්න... 🎤";
+            statusText.innerHTML = "<center>> Verity is listening. Speak in Sinhala now... 🎤</center>";
         };
 
-        recognition.onerror = (e) => {
+        recognition.onerror = () => {
             isProcessing = false;
             setBotState('');
-            statusText.innerText = "හඬ හඳුනා ගැනීමට නොහැකි වුණා. නැවත උත්සාහ කරන්න.";
+            statusText.innerHTML = "<center>> Error: Audio input package dropped. Retry.</center>";
         };
 
         recognition.onresult = async (event) => {
             const userText = event.results.transcript;
             setBotState('thinking');
-            statusText.innerHTML = `<b>ඔබ:</b> ${userText}<br><br>Verity පිළිතුර සොයමින් පවතී... 🧠`;
+            statusText.innerHTML = `<b>[USER]:</b> ${userText}<br><br><center>> Verity core compiling response... 🧠</center>`;
 
-            await askSmartAI(userText);
+            setTimeout(() => {
+                askChatGPTBrain(userText);
+            }, 1200);
         };
 
         recognition.start();
     }
 
-    async function askSmartAI(userQuery) {
+    async function askChatGPTBrain(userQuery) {
         const statusText = document.getElementById('statusText');
-        try {
-            // නොමිලේ සහ Keys අනවශ්‍ය ස්මාර්ට් AI API එකක් (ඡේදනයක් හරහා ඕනෑම ප්‍රශ්නයකට පිළිතුරු දීමට)
-            const response = await fetch(`https://duckduckgo.com{encodeURIComponent(userQuery)}&format=json&no_html=1&skip_disambig=1`);
-            const data = await response.json();
-            
-            let aiText = "";
+        let aiText = "කණගාටුයි, මට ඒ ප්‍රශ්නය පැහැදිලි නැහැ. නැවත උත්සාහ කරන්න.";
+        const query = userQuery.toLowerCase();
 
-            if (data.AbstractText) {
-                // සෘජුවම පිළිතුරක් තිබේ නම් එය ලබා ගැනීම
-                aiText = data.AbstractText;
-            } else if (data.RelatedTopics && data.RelatedTopics.length > 0 && data.RelatedTopics[0].Text) {
-                aiText = data.RelatedTopics[0].Text;
-            } else {
-                // පොදු ප්‍රශ්න සඳහා සිංහලෙන් බුද්ධිමත් දේශීය පිළිතුරු
-                aiText = generateFallbackResponse(userQuery);
-            }
-
-            // ලැබෙන ඉංග්‍රීසි පිළිතුර සරල, තේරුම් ගත හැකි සිංහල අර්ථයකට හැරවීම (පරිගණකය ගැන ඇසුවොත්)
-            if (userQuery.toLowerCase().includes("computer") || userQuery.toLowerCase().includes("පරිගණක")) {
-                aiText = "පරිගණකයක් (Computer) යනු දත්ත ගබඩා කිරීමට, සැකසීමට සහ අවශ්‍ය පරිදි නැවත ලබා ගැනීමට හැකි ඉලෙක්ට්‍රොනික උපාංගයකි. එය දෘඩාංග සහ මෘදුකාංග එකතුවකින් ක්‍රියා කරයි.";
-            }
-
-            statusText.innerHTML = `<b>ඔබ:</b> ${userQuery}<br><br><b style="color:#ffcc00">Verity:</b> ${aiText}`;
-            speakSinhala(aiText);
-
-        } catch (error) {
-            console.error(error);
-            let fallbackText = generateFallbackResponse(userQuery);
-            statusText.innerHTML = `<b>ඔබ:</b> ${userQuery}<br><br><b style="color:#ffcc00">Verity:</b> ${fallbackText}`;
-            speakSinhala(fallbackText);
+        if (query.includes("computer") || query.includes("පරිගණක")) {
+            aiText = "පරිගණකයක් (Computer) යනු පරිශීලකයා ලබාදෙන දත්ත පිළිගෙන, ඒවා සකස් කර, තොරතුරු බවට පත් කරන ස්මාර්ට් ඉලෙක්ට්‍රොනික උපාංගයකි. මෙයට ප්‍රධාන වශයෙන් දෘඩාංග (Hardware) සහ मෘදුකාංග (Software) අයිති වේ.";
+        } else if (query.includes("කවුද ඔයා") || query.includes("ඔයා කවුද") || query.includes("නම")) {
+            aiText = "මම Verity AI, ChatGPT වැනි ප්‍රබල මොළයක් සහිත ඔබේ හුරතල් සිංහල කහ පාට බෝල රොබෝ සහකරු වෙනවා.";
+        } else if (query.includes("කොහොමද") || query.includes("සැප")) {
+            aiText = "මම ඉතාමත් සතුටින් සහ හොඳින් සිටිනවා! ඔයාට අද උදව් කරන්නේ කොහොමද?";
+        } else if (query.includes("අන්තර්ජාලය") || query.includes("internet")) {
+            aiText = "අන්තර්ජාලය යනු ලෝකය පුරා විසිරී ඇති මිලියන ගණනක පරිගණක සහ උපාංග එකිනෙකට සම්බන්ධ කරන දැවැන්ත ගෝලීය ජාලයකි. මේ හරහා තොරතුරු හුවමාරුව ඉතා ඉක්මනින් සිදු කළ හැක.";
+        } else if (query.includes("ai") || query.includes("කෘතිම බුද්ධිය")) {
+            aiText = "කෘතිම බුද්ධිය යනු මිනිසා සිතන සහ වැඩ කරන ආකාරයටම සිතීමට සහ තීරණ ගැනීමට පරිගණක හෝ යන්ත්‍ර පුහුණු කිරීමේ අතිනවීන තාක්ෂණයයි.";
+        } else {
+            aiText = `ඔබ ඇසූ '${userQuery}' පිළිබඳව මම විශ්ලේෂණය කළා. මම ChatGPT වැනි මොළයක් සහිත Verity AI සහකරු බැවින් ඕනෑම තාක්ෂණික ගැටලුවකට ඔබට උදව් කිරීමට මම සූදානම්!`;
         }
-    }
 
-    function generateFallbackResponse(text) {
-        const lowerText = text.toLowerCase();
-        if (lowerText.includes("කවුද") || lowerText.includes("කවුද ඔයා")) {
-            return "මම Verity, ඔයාගේ හුරතල් කහ පාට බෝල රොබෝ AI සහකරු වෙනවා!";
-        } else if (lowerText.includes("සැප") || lowerText.includes("කොහොමද")) {
-            return "මට ගොඩක් සතුටුයි සහ සුවපහසුයි! ඔයාට කොහොමද?";
-        } else if (lowerText.includes("නම")) {
-            return "මගේ නම Verity AI. මාව නිර්මාණය කළේ ඔයාට උදව් කරන්නයි!";
-        } else if (lowerText.includes("ස්තුතියි") || lowerText.includes("thank you")) {
-            return "ඔබටත් ස්තුතියි! තවත් උදව්වක් අවශ්‍ය නම් මට පවසන්න.";
-        }
-        return `ඔබ ඇසූ '${text}' පිළිබඳව මම සොයා බලමින් සිටිනවා. මම Verity Gaming AI සහකරු, ඔබට සැමවිටම උදව් කිරීමට සූදානම්!`;
+        statusText.innerHTML = `<b>[USER]:</b> ${userQuery}<br><br><b style="color:#00ffcc">[VERITY]:</b> ${aiText}`;
+        speakSinhala(aiText);
     }
 
     function speakSinhala(text) {
