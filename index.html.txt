@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sinhala Voice AI Assistant</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f9; text-align: center; }
+        .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        input { width: 90%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
+        button { padding: 10px 20px; background: #0070f3; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #0051a8; }
+        .status { margin-top: 20px; font-weight: bold; color: #333; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>සිංහල AI Voice Assistant 🇱🇰</h2>
+    
+    <!-- API Settings Panel -->
+    <div style="text-align: left; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+        <h4>⚙️ API Settings (Verity Mod Style)</h4>
+        <input type="password" id="groqKey" placeholder="Groq API Key (STT සඳහා)">
+        <input type="password" id="geminiKey" placeholder="Google Gemini API Key (AI සඳහා)">
+        <input type="password" id="googleTtsKey" placeholder="Google Cloud API Key (TTS සඳහා)">
+        <button onclick="saveKeys()">Keys සුරකින්න</button>
+    </div>
+
+    <!-- AI Controls -->
+    <div>
+        <button id="recordBtn" onclick="toggleRecording()">🎤 කතා කරන්න (Record)</button>
+        <div class="status" id="statusText">ලෑස්තියි...</div>
+    </div>
+</div>
+
+<script>
+    let mediaRecorder;
+    let audioChunks = [];
+    let isRecording = false;
+
+    // Browser එකේ Keys සේව් කරගැනීම
+    window.onload = function() {
+        document.getElementById('groqKey').value = localStorage.getItem('groqKey') || '';
+        document.getElementById('geminiKey').value = localStorage.getItem('geminiKey') || '';
+        document.getElementById('googleTtsKey').value = localStorage.getItem('googleTtsKey') || '';
+    }
+
+    function saveKeys() {
+        localStorage.setItem('groqKey', document.getElementById('groqKey').value);
+        localStorage.setItem('geminiKey', document.getElementById('geminiKey').value);
+        localStorage.setItem('googleTtsKey', document.getElementById('googleTtsKey').value);
+        alert('API Keys සාර්ථකව සුරැකුණා!');
+    }
+
+    // 1. Microphone එක Record කිරීම
+    async function toggleRecording() {
+        const recordBtn = document.getElementById('recordBtn');
+        const statusText = document.getElementById('statusText');
+
+        if (!isRecording) {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
+            audioChunks = [];
+
+            mediaRecorder.ondataavailable = event => audioChunks.push(event.data);
+            mediaRecorder.onstop = async () => {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                statusText.innerText = "හඬ අකුරු වලට හරවමින් (STT)...";
+                await processAI(audioBlob);
+            };
+
+            mediaRecorder.start();
+            isRecording = true;
+            recordBtn.innerText = "🛑 නතර කරන්න";
+            statusText.innerText = "ඔබේ සිංහල හඬ පටිගත වෙමින් පවතී...";
+        } else {
+            mediaRecorder.stop();
+            isRecording = false;
+            recordBtn.innerText = "🎤 කතා කරන්න (Record)";
+        }
+    }
+
+    // Main AI Pipeline
+    async function processAI(audioBlob) {
+        const groqKey = localStorage.getItem('groqKey');
+        const geminiKey = localStorage.getItem('geminiKey');
+        const ttsKey = localStorage.getItem('googleTtsKey');
+        const statusText = document.getElementById('statusText');
+
+        try {
+            // 2. STT - Groq Whisper හරහා සිං格ල හඬ Text කිරීම
+            const formData = new FormData();
+            formData.append("file", audioBlob, "audio.wav");
+            formData.append("model", "whisper-large-v3");
+            formData.append("language", "si"); 
+
+            const sttResponse = await fetch("https://groq.com", {
+                method: "POST",
+                headers: { "Authorization": `Bearer ${groqKey}` },
+                body: formData
+            });
+            const sttData = await sttResponse.json();
+            const userText = sttData.text;
+            statusText.innerText = `ඔබ: ${userText}\n\nAI සිතමින් පවතී...`;
+
+            // 3. LLM - Gemini හරහා සිංහල පිළිතුරක් සෑදීම
+            const geminiResponse = await fetch(`https://googleapis.com{geminiKey}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: userText }] }],
+                    systemInstruction: { parts: [{ text: "You are a helpful AI. Always reply in fluent, natural Sinhala language." }] }
+                })
+            });
+            const geminiData = await geminiResponse.json();
+            const aiText = geminiData.candidates[0].content.parts[0].text;
+            statusText.innerText = `AI: ${aiText}\n\nපිළිතුර ශබ්ද නගා කියවයි...`;
+
+            // 4. TTS - Google Cloud TTS හරහා සිංහලෙන් කියවීම
+            const ttsResponse = await fetch(`https://googleapis.com{ttsKey}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    input: { text: aiText },
+                    voice: { languageCode: "si-LK", name: "si-LK-Standard-A" },
+                    audioConfig: { audioEncoding: "MP3" }
+                })
+            });
+            const ttsData = await ttsResponse.json();
+            
+            // Audio Playback
+            const audio = new Audio(`data:audio/mp3;base64,${ttsData.audioContent}`);
+            audio.play();
+            statusText.innerText = `AI: ${aiText}`;
+
+        } catch (error) {
+            console.error(error);
+            statusText.innerText = "Error එකක් සිදු වුණා! API Keys නිවැරදිදැයි බලන්න.";
+        }
+    }
+</script>
+
+</body>
+</html>
